@@ -1,0 +1,16 @@
+<form [formGroup]="uploadForm" (ngSubmit)="uploadFIle()">
+  <input
+    type="file"
+    formControlName="fileToUpload"
+    (change)="onFileChange($event)"
+  />
+  <button
+    mat-raised-button
+    type="submit"
+    value="Submit"
+    color="primary"
+    (click)="uploadFIle()"
+  >
+    Upload
+  </button>
+</form>

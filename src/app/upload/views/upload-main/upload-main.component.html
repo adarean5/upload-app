@@ -1,0 +1,16 @@
+<mat-sidenav-container id="sidenav-container">
+  <mat-sidenav id="sidenav" mode="side" opened>
+    <div class="sidenav-content-container">
+      <button mat-raised-button color="accent" (click)="openUploadDialog()">
+        Upload File
+      </button>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <app-file-table
+      [fileInfo]="filesInfo"
+      (downloadEmitter)="downloadFile($event)"
+      (deleteEmitter)="deleteFile($event)"
+    ></app-file-table>
+  </mat-sidenav-content>
+</mat-sidenav-container>

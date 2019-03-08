@@ -6,6 +6,9 @@ import { Router } from '@angular/router';
 import { UploadFilesService } from 'src/app/services/upload-files.service';
 import { FileInfo } from 'src/app/models/file-info.model';
 import { MatDialog } from '@angular/material';
+import { UploadState } from '../../store/upload.reducers';
+import { Store } from '@ngrx/store';
+import { UploadStart } from '../../store/upload.actions';
 
 @Component({
   selector: 'app-upload-main',
@@ -17,9 +20,10 @@ export class UploadMainComponent implements OnInit {
   public filesInfo: FileInfo[];
 
   constructor(
-    private uploadFIlesService: UploadFilesService,
+    private uploadFilesService: UploadFilesService,
     private fileSizePipe: FileSizePipe,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private store: Store<UploadState>
   ) {}
 
   ngOnInit() {
@@ -27,7 +31,7 @@ export class UploadMainComponent implements OnInit {
   }
 
   getListFiles(): void {
-    this.uploadFIlesService.getListFiles().subscribe((response: FileInfo[]) => {
+    this.uploadFilesService.getListFiles().subscribe((response: FileInfo[]) => {
       this.filesInfo = response.map((fileInfo: FileInfo) => {
         fileInfo.displaySize = this.fileSizePipe.transform(fileInfo.size);
         console.log('File info: ', fileInfo);
@@ -37,14 +41,15 @@ export class UploadMainComponent implements OnInit {
   }
 
   uploadFile(file: File): void {
-    const progress = this.uploadFIlesService.uploadFile(file).subscribe(end => {
+    /*const progress = this.uploadFilesService.uploadFile(file).subscribe(end => {
       console.log(end);
       this.getListFiles();
-    });
+    });*/
+    this.store.dispatch(new UploadStart(file));
   }
 
   downloadFile(fileName: string): void {
-    this.uploadFIlesService.downloadFile(fileName).subscribe(result => {
+    this.uploadFilesService.downloadFile(fileName).subscribe(result => {
       console.log('Download result: ', result);
       saveAs(result, fileName);
     });
@@ -52,7 +57,7 @@ export class UploadMainComponent implements OnInit {
 
   deleteFile(fileName: string): void {
     console.log('delete from main', fileName);
-    this.uploadFIlesService.deleteFile(fileName).subscribe(result => {
+    this.uploadFilesService.deleteFile(fileName).subscribe(result => {
       this.getListFiles();
     });
   }

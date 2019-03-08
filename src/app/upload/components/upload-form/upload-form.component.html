@@ -1,5 +1,6 @@
 <form [formGroup]="uploadForm" (ngSubmit)="uploadFIle()">
   <input
+    class="custom-file-input"
     type="file"
     formControlName="fileToUpload"
     (change)="onFileChange($event)"

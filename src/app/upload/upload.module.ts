@@ -1,3 +1,5 @@
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
 import { WidgetsModule } from './../widgets/widgets.module';
 import { FileInfo } from '../models/file-info.model';
 import { ROUTES } from './upload.routes';
@@ -11,7 +13,8 @@ import { FileTableComponent } from './components/file-table/file-table.component
 import { UploadDialogueComponent } from './components/upload-dialogue/upload-dialogue.component';
 import { UploadFormComponent } from './components/upload-form/upload-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-// import { saveAs } from 'file-saver';
+import { uploadReducers } from './store/upload.reducers';
+import { UploadEffects } from './store/upload.effects';
 
 @NgModule({
   entryComponents: [UploadDialogueComponent],
@@ -22,13 +25,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     UploadFormComponent
   ],
   imports: [
+    RouterModule.forChild(ROUTES),
+
+    StoreModule.forFeature('upload', uploadReducers),
+    EffectsModule.forFeature([UploadEffects]),
+
     CommonModule,
     MaterialModule,
-    RouterModule.forChild(ROUTES),
     FormsModule,
     ReactiveFormsModule,
     WidgetsModule
-    // saveAs
   ],
   providers: [UploadFilesService]
 })

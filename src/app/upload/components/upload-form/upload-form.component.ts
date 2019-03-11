@@ -36,7 +36,7 @@ export class UploadFormComponent implements OnInit {
   }
 
   uploadFIle(): void {
-    console.log(this.fileToUpload);
+    // console.log(this.fileToUpload);
     this.uploadEmitter.emit(this.fileToUpload);
   }
 }

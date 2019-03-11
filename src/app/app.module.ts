@@ -11,7 +11,9 @@ import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { appReducers } from './app.reducers';
+import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,6 +21,7 @@ import { EffectsModule } from '@ngrx/effects';
     RouterModule.forRoot(ROUTES),
     StoreModule.forRoot(appReducers),
     EffectsModule.forRoot([]),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
     AuthModule,
     BrowserModule,
     AppRoutingModule,

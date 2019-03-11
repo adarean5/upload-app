@@ -1,17 +1,21 @@
+import { FileInfo } from 'src/app/models/file-info.model';
 import { UploadActions, UploadActionTypes } from './upload.actions';
+import { createFeatureSelector } from '@ngrx/store';
 
 // Upload state interface
 export interface UploadState {
   uploading: string[];
   downloading: string[];
   deleting: string[];
+  filesInfo: FileInfo[];
 }
 
 // Initial upload state
 export const initialUploadState: UploadState = {
   uploading: [],
   downloading: [],
-  deleting: []
+  deleting: [],
+  filesInfo: []
 };
 
 // Upload state reducer
@@ -20,6 +24,12 @@ export function uploadReducers(
   uploadAction: UploadActions
 ): UploadState {
   switch (uploadAction.type) {
+    case UploadActionTypes.GET_FILES_INFO_SUCCESS:
+      return {
+        ...uploadState,
+        filesInfo: [...uploadAction.payload]
+      };
+
     /**
      * Upload cases
      */
@@ -103,12 +113,4 @@ export function uploadReducers(
   }
 }
 
-// Basic state selectors
-export const getUploadUploading = (uploadState: UploadState) =>
-  uploadState.uploading;
-
-export const getUploadDownloading = (uploadState: UploadState) =>
-  uploadState.downloading;
-
-export const getUploadDeleting = (uploadState: UploadState) =>
-  uploadState.deleting;
+export const getUploadState = createFeatureSelector<UploadState>('upload');

@@ -1,8 +1,13 @@
+import { FileInfo } from './../../models/file-info.model';
 import { Action } from '@ngrx/store';
 
 export enum UploadActionTypes {
+  GET_FILES_INFO = '[Uploads] GetFilesInfo',
+  GET_FILES_INFO_SUCCESS = '[Uploads] GetFilesInfoSuccess',
+
   UPLOAD_START = '[Uploads] UploadStart',
   UPLOAD_SUCCESS = '[Uploads] UploadSuccess',
+  UPLOAD_UPDATE = '[Uploads] UploadUpdate',
   UPLOAD_FAILURE = '[Uploads] UploadFailure',
 
   DOWNLOAD_START = '[Uploads] DownloadStart',
@@ -12,6 +17,15 @@ export enum UploadActionTypes {
   DELETE_START = '[Uploads] DeleteStart',
   DELETE_SUCCESS = '[Uploads] DeleteSuccess',
   DELETE_FAILURE = '[Uploads] DeleteFailure'
+}
+
+export class GetFilesInfo implements Action {
+  readonly type = UploadActionTypes.GET_FILES_INFO;
+}
+
+export class GetFilesInfoSuccess implements Action {
+  readonly type = UploadActionTypes.GET_FILES_INFO_SUCCESS;
+  constructor(public payload: FileInfo[]) {}
 }
 
 /**
@@ -31,6 +45,10 @@ export class UploadSuccess implements Action {
 export class UploadFailure implements Action {
   readonly type = UploadActionTypes.UPLOAD_FAILURE;
   constructor(public payload: string) {}
+}
+
+export class UploadUpdate implements Action {
+  readonly type = UploadActionTypes.UPLOAD_UPDATE;
 }
 
 /**
@@ -72,9 +90,12 @@ export class DeleteFailure implements Action {
 }
 
 export type UploadActions =
+  | GetFilesInfo
+  | GetFilesInfoSuccess
   | UploadStart
   | UploadSuccess
   | UploadFailure
+  | UploadUpdate
   | DownloadStart
   | DownloadSuccess
   | DownloadFailure

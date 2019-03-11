@@ -5,7 +5,8 @@ import {
   HttpRequest,
   HttpEventType,
   HttpResponse,
-  HttpHeaders
+  HttpHeaders,
+  HttpEvent
 } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 
@@ -20,8 +21,9 @@ export class UploadFilesService {
     return this.http.get<FileInfo[]>(this.fileAPIAddress + 'list-files');
   }
 
-  public uploadFile(file: File): Observable<number> {
+  public uploadFile(file: File) {
     const progress = new Subject<number>();
+    const response = null;
 
     const formData: FormData = new FormData();
     formData.append('file-to-upload', file, file.name);
@@ -32,12 +34,14 @@ export class UploadFilesService {
       this.fileAPIAddress + 'file-upload',
       formData,
       {
-        reportProgress: true
+        reportProgress: false
       }
     );
 
     // Send the upload request and subscribe to upload progress
-    this.http.request(req).subscribe(event => {
+    return this.http.request(
+      req
+    ); /*.subscribe(event => {
       if (event.type === HttpEventType.UploadProgress) {
         // Calucaltes the upload percentage
         const percentDone = Math.round((100 * event.loaded) / event.loaded);
@@ -47,7 +51,7 @@ export class UploadFilesService {
       }
     });
 
-    return progress;
+    return progress;*/
   }
 
   public downloadFile(fileName: string): Observable<Blob> {

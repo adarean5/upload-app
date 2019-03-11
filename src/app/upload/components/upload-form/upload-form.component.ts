@@ -21,22 +21,12 @@ export class UploadFormComponent implements OnInit {
   ngOnInit() {}
 
   onFileChange(event): void {
-    // const reader = new FileReader();
     if (event.target.files && event.target.files.length) {
       this.fileToUpload = event.target.files[0];
-      /*const [file] = event.target.files;
-      reader.readAsDataURL(file);
-
-      reader.onload = () => {
-        this.uploadForm.patchValue({
-          fileToUpload: reader.result
-        });
-      };*/
     }
   }
 
   uploadFIle(): void {
-    // console.log(this.fileToUpload);
     this.uploadEmitter.emit(this.fileToUpload);
   }
 }

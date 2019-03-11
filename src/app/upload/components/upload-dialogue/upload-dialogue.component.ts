@@ -19,8 +19,6 @@ export class UploadDialogueComponent implements OnInit {
   ngOnInit() {}
 
   uploadFileAndClose(file: File): void {
-    // console.log('file from dia: ', file);
-    // this.data.file = file;
     this.dialogRef.close(file);
   }
 }

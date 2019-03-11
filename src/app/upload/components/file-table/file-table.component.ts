@@ -65,18 +65,14 @@ export class FileTableComponent implements OnInit, OnChanges {
   }
 
   downloadFile(row) {
-    console.log('download triggered: ', row.name);
     this.downloadEmitter.emit(row.name);
   }
 
   deleteFile(row) {
-    console.log('delete triggered: ', row.name);
     this.deleteEmitter.emit(row.name);
   }
 
   expandElement(row) {
-    console.log('clicked ', row);
     this.expandedElement = this.expandedElement === row ? null : row;
-    console.log('expanded: ', this.expandedElement);
   }
 }

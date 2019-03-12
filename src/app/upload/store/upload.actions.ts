@@ -62,7 +62,7 @@ export class DownloadStart implements Action {
 
 export class DownloadSuccess implements Action {
   readonly type = UploadActionTypes.DOWNLOAD_SUCCESS;
-  constructor(public payload: string) {}
+  constructor(public payload: { file: Blob; fileName: string }) {}
 }
 
 export class DownloadFailure implements Action {

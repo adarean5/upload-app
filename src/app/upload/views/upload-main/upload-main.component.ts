@@ -1,8 +1,7 @@
-import { saveAs } from 'file-saver';
+import { DownloadStart, DeleteStart } from './../../store/upload.actions';
 import { FileSizePipe } from './../../../widgets/pipes/file-size.pipe';
 import { UploadDialogueComponent } from './../../components/upload-dialogue/upload-dialogue.component';
 import { Component, OnInit } from '@angular/core';
-import { UploadFilesService } from 'src/app/services/upload-files.service';
 import { FileInfo } from 'src/app/models/file-info.model';
 import { MatDialog } from '@angular/material';
 import { UploadState } from '../../store/upload.reducers';
@@ -20,7 +19,6 @@ export class UploadMainComponent implements OnInit {
   public filesInfo: FileInfo[];
 
   constructor(
-    private uploadFilesService: UploadFilesService,
     private fileSizePipe: FileSizePipe,
     public dialog: MatDialog,
     private store: Store<UploadState>
@@ -44,15 +42,11 @@ export class UploadMainComponent implements OnInit {
   }
 
   downloadFile(fileName: string): void {
-    this.uploadFilesService.downloadFile(fileName).subscribe(result => {
-      saveAs(result, fileName);
-    });
+    this.store.dispatch(new DownloadStart(fileName));
   }
 
   deleteFile(fileName: string): void {
-    this.uploadFilesService.deleteFile(fileName).subscribe(result => {
-      this.store.dispatch(new GetFilesInfo());
-    });
+    this.store.dispatch(new DeleteStart(fileName));
   }
 
   // Opens the file upload dialogue
@@ -75,6 +69,20 @@ export class UploadMainComponent implements OnInit {
         fileInfo.displaySize = this.fileSizePipe.transform(fileInfo.size);
         return fileInfo;
       });
+    });
+  }*/
+
+  // Old method for downloading files, now replaced with NgRx
+  /*downloadFile(fileName: string): void {
+    this.uploadFilesService.downloadFile(fileName).subscribe(result => {
+      saveAs(result, fileName);
+    });
+  }*/
+
+  // Old method for deleting files, now replaced with NgRx
+  /*deleteFile(fileName: string): void {
+    this.uploadFilesService.deleteFile(fileName).subscribe(result => {
+      this.store.dispatch(new GetFilesInfo());
     });
   }*/
 }

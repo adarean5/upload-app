@@ -70,7 +70,7 @@ export function uploadReducers(
       return {
         ...uploadState,
         downloading: uploadState.downloading.filter(
-          (fileName: string) => fileName !== uploadAction.payload
+          (fileName: string) => fileName !== uploadAction.payload.fileName
         )
       };
 

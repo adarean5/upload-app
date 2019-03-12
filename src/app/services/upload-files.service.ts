@@ -1,30 +1,44 @@
 import { FileInfo } from '../models/file-info.model';
 import { Injectable } from '@angular/core';
-import {
-  HttpClient,
-  HttpRequest,
-  HttpEventType,
-  HttpResponse,
-  HttpHeaders,
-  HttpEvent
-} from '@angular/common/http';
-import { Observable, Subject } from 'rxjs';
+import { HttpClient, HttpRequest, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class UploadFilesService {
+  /**
+   * Base address of the API server
+   *
+   * @private
+   * @memberof UploadFilesService
+   */
   private fileAPIAddress = 'http://127.0.0.1:8081/';
 
+  /**
+   * Creates an instance of UploadFilesService.
+   * @param {HttpClient} http - HttpClient used for sending requests to the API.
+   * @memberof UploadFilesService
+   */
   constructor(private http: HttpClient) {}
 
   // Gets the list of all files uploaded to the server
+  /**
+   * Gets the list of all files located on the server.
+   *
+   * @returns {Observable<FileInfo[]>}
+   * @memberof UploadFilesService
+   */
   public getListFiles(): Observable<FileInfo[]> {
     return this.http.get<FileInfo[]>(this.fileAPIAddress + 'list-files');
   }
 
+  /**
+   * Attempts to upload a file to the server.
+   *
+   * @param {File} file - File to be uploaded.
+   * @returns
+   * @memberof UploadFilesService
+   */
   public uploadFile(file: File) {
-    const progress = new Subject<number>();
-    const response = null;
-
     const formData: FormData = new FormData();
     formData.append('file-to-upload', file, file.name);
 
@@ -39,24 +53,17 @@ export class UploadFilesService {
     );
 
     // Send the upload request and subscribe to upload progress
-    return this.http.request(
-      req
-    ); /*.subscribe(event => {
-      if (event.type === HttpEventType.UploadProgress) {
-        // Calucaltes the upload percentage
-        const percentDone = Math.round((100 * event.loaded) / event.loaded);
-        progress.next(percentDone);
-      } else if (event instanceof HttpResponse) {
-        progress.complete();
-      }
-    });
-
-    return progress;*/
+    return this.http.request(req);
   }
 
+  /**
+   * Attempts to download a file fom the server.
+   *
+   * @param {string} fileName - Name of the file to be downloaded.
+   * @returns {Observable<Blob>} - File sent back from the server.
+   * @memberof UploadFilesService
+   */
   public downloadFile(fileName: string): Observable<Blob> {
-    console.log('s');
-
     const url = this.fileAPIAddress + 'download';
     const body = {
       fileName
@@ -68,6 +75,13 @@ export class UploadFilesService {
     });
   }
 
+  /**
+   * Attempts to delete a file from the server.
+   *
+   * @param {string} fileName - Name of the file to be deleted
+   * @returns {Observable<any>}
+   * @memberof UploadFilesService
+   */
   public deleteFile(fileName: string): Observable<any> {
     const url = this.fileAPIAddress + 'delete/' + fileName;
     return this.http.delete(url);

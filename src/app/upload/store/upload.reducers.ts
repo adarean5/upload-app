@@ -2,7 +2,17 @@ import { FileInfo } from 'src/app/models/file-info.model';
 import { UploadActions, UploadActionTypes } from './upload.actions';
 import { createFeatureSelector } from '@ngrx/store';
 
-// Upload state interface
+/**
+ * Sate of the Upload module.
+ *
+ * @export
+ * @interface UploadState
+ *
+ * @param uploading - Files currently being uploaded.
+ * @param downloading - Files currently being downloaded.
+ * @param deleting - Files currently being deleted.
+ * @param filesInfo - List of all the files on the server.
+ */
 export interface UploadState {
   uploading: string[];
   downloading: string[];
@@ -10,7 +20,11 @@ export interface UploadState {
   filesInfo: FileInfo[];
 }
 
-// Initial upload state
+/**
+ * Initial state of the Upload module.
+ *
+ * @export
+ */
 export const initialUploadState: UploadState = {
   uploading: [],
   downloading: [],
@@ -19,6 +33,14 @@ export const initialUploadState: UploadState = {
 };
 
 // Upload state reducer
+/**
+ * Reducer for the Upload module store.
+ *
+ * @export
+ * @param {UploadState} [uploadState=initialUploadState] - Current state.
+ * @param {UploadActions} uploadAction - Action to reduce.
+ * @returns {UploadState}
+ */
 export function uploadReducers(
   uploadState: UploadState = initialUploadState,
   uploadAction: UploadActions
@@ -29,10 +51,6 @@ export function uploadReducers(
         ...uploadState,
         filesInfo: [...uploadAction.payload]
       };
-
-    /**
-     * Upload cases
-     */
 
     case UploadActionTypes.UPLOAD_START:
       return {
@@ -56,10 +74,6 @@ export function uploadReducers(
         )
       };
 
-    /**
-     * Download cases
-     */
-
     case UploadActionTypes.DOWNLOAD_START:
       return {
         ...uploadState,
@@ -81,10 +95,6 @@ export function uploadReducers(
           (fileName: string) => fileName !== uploadAction.payload
         )
       };
-
-    /**
-     * Delete cases
-     */
 
     case UploadActionTypes.DELETE_START:
       return {

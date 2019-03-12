@@ -5,13 +5,20 @@
     formControlName="fileToUpload"
     (change)="onFileChange($event)"
   />
-  <button
-    mat-raised-button
-    type="submit"
-    value="Submit"
-    color="primary"
-    (click)="uploadFIle()"
-  >
-    Upload
-  </button>
+  <br />
+  <br />
+  <div class="dialog-actions">
+    <button mat-button>
+      Cancel
+    </button>
+    <button
+      mat-raised-button
+      type="submit"
+      value="Submit"
+      color="primary"
+      (click)="uploadFIle()"
+    >
+      Upload
+    </button>
+  </div>
 </form>

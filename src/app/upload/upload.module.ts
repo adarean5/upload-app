@@ -1,9 +1,8 @@
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { WidgetsModule } from './../widgets/widgets.module';
-import { FileInfo } from '../models/file-info.model';
 import { ROUTES } from './upload.routes';
-import { NgModule, OnInit } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UploadMainComponent } from './views/upload-main/upload-main.component';
 import { MaterialModule } from '../material/material.module';

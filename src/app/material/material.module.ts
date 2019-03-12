@@ -14,7 +14,14 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatRippleModule } from '@angular/material/core';
 
+/**
+ * Used for importing the angular material components to other modules.
+ *
+ * @export
+ * @class MaterialModule
+ */
 @NgModule({
   imports: [
     MatButtonModule,
@@ -28,7 +35,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatIconModule,
     MatSidenavModule,
     MatDialogModule,
-    MatSortModule
+    MatSortModule,
+    MatRippleModule
   ],
   exports: [
     MatInputModule,
@@ -42,7 +50,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatIconModule,
     MatSidenavModule,
     MatDialogModule,
-    MatSortModule
+    MatSortModule,
+    MatRippleModule
   ],
   declarations: []
 })

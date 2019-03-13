@@ -7,7 +7,7 @@ import { MatDialog } from '@angular/material';
 import { UploadState } from '../../store/upload.reducers';
 import { Store } from '@ngrx/store';
 import { UploadStart, GetFilesInfo } from '../../store/upload.actions';
-import { getFilesInfo } from '../../store/upload.selectors';
+import { getFilesInfo, getUploading } from '../../store/upload.selectors';
 
 /**
  * The main component for downloading, uploading, deleting and viewing files.
@@ -25,10 +25,19 @@ import { getFilesInfo } from '../../store/upload.selectors';
 export class UploadMainComponent implements OnInit {
   /**
    * Stores the information which is displayed in the file-table component.
+   *
    * @type {FileInfo[]}
    * @memberof UploadMainComponent
    */
   public filesInfo: FileInfo[];
+
+  /**
+   * Stores the files that are currently uploading
+   *
+   * @type {string[]}
+   * @memberof UploadMainComponent
+   */
+  public uploading: string[];
 
   /**
    * Creates an instance of UploadMainComponent.
@@ -47,6 +56,9 @@ export class UploadMainComponent implements OnInit {
    * On init dispatches a new GetFilesInfo action.
    *
    * Subscribes to the getFilesInfo selector and updates the filesInfo array
+   *
+   * Subscribes to the getUploading selector and updates the uploading array
+   *
    * @memberof UploadMainComponent
    */
   ngOnInit() {
@@ -58,6 +70,12 @@ export class UploadMainComponent implements OnInit {
           fileInfo.displaySize = this.fileSizePipe.transform(fileInfo.size);
           return fileInfo;
         });
+      }
+    });
+
+    this.store.select(getUploading).subscribe(result => {
+      if (result !== undefined) {
+        this.uploading = [...result];
       }
     });
   }

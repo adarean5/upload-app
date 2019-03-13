@@ -14,6 +14,7 @@ import { UploadFormComponent } from './components/upload-form/upload-form.compon
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { uploadReducers } from './store/upload.reducers';
 import { UploadEffects } from './store/upload.effects';
+import { StateDisplayComponent } from './components/state-display/state-display.component';
 
 @NgModule({
   entryComponents: [UploadDialogueComponent],
@@ -21,7 +22,8 @@ import { UploadEffects } from './store/upload.effects';
     UploadMainComponent,
     FileTableComponent,
     UploadDialogueComponent,
-    UploadFormComponent
+    UploadFormComponent,
+    StateDisplayComponent
   ],
   imports: [
     RouterModule.forChild(ROUTES),

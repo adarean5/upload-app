@@ -15,6 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatRippleModule } from '@angular/material/core';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 /**
  * Used for importing the angular material components to other modules.
@@ -36,7 +37,8 @@ import { MatRippleModule } from '@angular/material/core';
     MatSidenavModule,
     MatDialogModule,
     MatSortModule,
-    MatRippleModule
+    MatRippleModule,
+    MatExpansionModule
   ],
   exports: [
     MatInputModule,
@@ -51,7 +53,8 @@ import { MatRippleModule } from '@angular/material/core';
     MatSidenavModule,
     MatDialogModule,
     MatSortModule,
-    MatRippleModule
+    MatRippleModule,
+    MatExpansionModule
   ],
   declarations: []
 })

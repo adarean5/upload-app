@@ -1,5 +1,9 @@
 # UploadApp
 
+## Prerequisites
+
+Before running this app, make sure you are also running the **upload-api** found [here](https://github.com/adarean5/upload-api).
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.3.
 
 ## Development server

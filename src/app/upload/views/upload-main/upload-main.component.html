@@ -6,7 +6,11 @@
       </button>
       <br />
       <br />
-      <app-state-display [uploading]="uploading"></app-state-display>
+      <app-state-display
+        [uploading]="uploading"
+        [downloading]="downloading"
+        [deleting]="deleting"
+      ></app-state-display>
     </div>
   </mat-sidenav>
   <mat-sidenav-content>

@@ -16,7 +16,7 @@ export class StateDisplayComponent implements OnInit {
   public uploading: string[];
 
   /**
-   * File names to be displayed in the "Uploading" section
+   * File names to be displayed in the "Downloading" section
    *
    * @type {string[]}
    * @memberof StateDisplayComponent
@@ -25,7 +25,7 @@ export class StateDisplayComponent implements OnInit {
   public downloading: string[];
 
   /**
-   * File names to be displayed in the "Uploading" section
+   * File names to be displayed in the "Deleting" section
    *
    * @type {string[]}
    * @memberof StateDisplayComponent

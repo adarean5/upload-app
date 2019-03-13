@@ -1,3 +1,4 @@
+import { getDownloading, getDeleting } from './../../store/upload.selectors';
 import { DownloadStart, DeleteStart } from './../../store/upload.actions';
 import { FileSizePipe } from './../../../widgets/pipes/file-size.pipe';
 import { UploadDialogueComponent } from './../../components/upload-dialogue/upload-dialogue.component';
@@ -32,12 +33,28 @@ export class UploadMainComponent implements OnInit {
   public filesInfo: FileInfo[];
 
   /**
-   * Stores the files that are currently uploading
+   * Stores the files that are currently uploading.
    *
    * @type {string[]}
    * @memberof UploadMainComponent
    */
   public uploading: string[];
+
+  /**
+   * Stores the files that are currently downloading.
+   *
+   * @type {string[]}
+   * @memberof UploadMainComponent
+   */
+  public downloading: string[];
+
+  /**
+   * Stores the files that are currently being deleted.
+   *
+   * @type {string[]}
+   * @memberof UploadMainComponent
+   */
+  public deleting: string[];
 
   /**
    * Creates an instance of UploadMainComponent.
@@ -55,9 +72,10 @@ export class UploadMainComponent implements OnInit {
   /**
    * On init dispatches a new GetFilesInfo action.
    *
-   * Subscribes to the getFilesInfo selector and updates the filesInfo array
-   *
-   * Subscribes to the getUploading selector and updates the uploading array
+   * Subscribes to the getFilesInfo selector and updates the filesInfo array.
+   * Subscribes to the getUploading selector and updates the uploading array.
+   * Subscribes to the getDownloading selector and updates the downloading array
+   * Subscribes to the getDeleting selector and updates the deleting array.
    *
    * @memberof UploadMainComponent
    */
@@ -76,6 +94,18 @@ export class UploadMainComponent implements OnInit {
     this.store.select(getUploading).subscribe(result => {
       if (result !== undefined) {
         this.uploading = [...result];
+      }
+    });
+
+    this.store.select(getDownloading).subscribe(result => {
+      if (result !== undefined) {
+        this.downloading = [...result];
+      }
+    });
+
+    this.store.select(getDeleting).subscribe(result => {
+      if (result !== undefined) {
+        this.deleting = [...result];
       }
     });
   }

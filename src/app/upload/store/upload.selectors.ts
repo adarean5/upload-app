@@ -19,5 +19,5 @@ export const getDownloading = createSelector(
 
 export const getDeleting = createSelector(
   getUploadState,
-  (state: UploadState) => state.downloading
+  (state: UploadState) => state.deleting
 );
